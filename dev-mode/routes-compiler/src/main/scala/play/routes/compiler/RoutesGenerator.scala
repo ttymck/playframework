@@ -187,7 +187,8 @@ object InjectedRoutesGenerator extends RoutesGenerator {
           .filter(_ => namespaceReverseRouter)
           .map(_ + pn.map("." + _).getOrElse(""))
           .orElse(pn.orElse(namespace))
-        (packageName.map(_.replace(".", "/") + "/").getOrElse("") + ReverseRoutesFile) ->
+        val discriminator: String = sourceInfo.source.split(".").head
+        (packageName.map(_.replace(".", "/") + "/").getOrElse("") + discriminator + ReverseRoutesFile) ->
           static.twirl
             .reverseRouter(
               sourceInfo,
